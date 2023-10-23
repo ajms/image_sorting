@@ -48,7 +48,5 @@ min_size=640
 echo "COPYING FROM $source_dir -> $destination_dir"
 mkdir -p "$destination_dir"
 
-# process_image /home/albert/Pictures/Backup_Handy/20210220_Moto5/Android/data/org.telegram.messenger/cache/257908565_24224.jpg $source_dir $destination_dir $min_size 
+# process_image /home/albert/Pictures/Backup_Handy/20210220_Moto5/Android/data/org.telegram.messenger/cache/257908565_24224.jpg $source_dir $destination_dir $min_size
 find "$source_dir" -type f \( -iname "*.jpg" -o -iname "*.jpeg" \) -exec bash -c "process_image \"{}\" \"$source_dir\" \"$destination_dir\" $min_size" \;
-
-
