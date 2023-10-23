@@ -1,0 +1,58 @@
+[tool.poetry]
+name = "image_sorting"
+version = "0.1.0"
+description = "Organize and sort images"
+authors = ["Albert Schulz <albert.schulz@posteo.dep>"]
+readme = "README.md"
+packages = [{ include = "image_sorting" }]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.12"
+imagehash = "^4.3.1"
+tqdm = "^4.66.1"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+isort = "^5.12.0"
+pre-commit-hooks = "^4.4.0"
+pre-commit = "^3.2.1"
+flake8 = "^6.0.0"
+mkdocs = "^1.4.2"
+python-slugify = "^8.0.1"
+gitignore-parser = "^0.1.3"
+pytest = "^7.4.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+addopts = "-ra -q --doctest-modules"
+minversion = "7.2.1"
+testpaths = ["tests", "src"]
+markers = ["unit: marks unit tests"]
+
+[tool.black]
+exclude = '''
+/(
+       \.eggs         # exclude a few common directories in the
+     | \.git          # root of the project
+     | \.hg
+     | \.mypy_cache
+     | \.tox
+     | _build
+     | buck-out
+     | build
+     | dist
+)/
+'''
+include = '\.pyi?$'
+line-length = 88
+
+[tool.isort]
+include_trailing_comma = true
+line_length = 88
+multi_line_output = 3
+profile = "black"
+skip_gitignore = true
