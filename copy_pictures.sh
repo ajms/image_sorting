@@ -5,17 +5,19 @@ process_image() {
     local destination_dir="$3"
     local filename="$(basename "$original_file")"
     local date_pattern="[0-9]{8}"
+    local signal_date_pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
     local min_size="$4"
 
     # Early return if the file is smaller than min_size
     if [ $(identify -format "%w" "$original_file") -lt "$min_size" ] || [ $(identify -format "%h" "$original_file") -lt "$min_size" ]; then
         return 0
     fi
-
+    local matched_date
     if [[ "$filename" =~ $date_pattern ]]; then
         # Extract the first occurrence of "YYYYMMDD" pattern from the filename
-        local matched_date
         matched_date=$(echo "$filename" | grep -oE '[0-9]{8}' | head -n 1)
+    elif [[ "$filename" =~ $signal_date_pattern ]]; then
+        matched_date=$(echo "$filename" | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}' | head -n 1 | tr -d '-')
     else
         matched_date="00000000"
     fi
